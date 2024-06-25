@@ -10,9 +10,13 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "^8.0.1",
     "react": "18.2.0",
     "react-native": "0.74.1",
-    "react-native-splash-screen": "^3.3.0"
+    "react-native-date-picker": "^5.0.4",
+    "react-native-modal-datetime-picker": "^17.1.0",
+    "react-native-splash-screen": "^3.3.0",
+    "react-native-timer-picker": "^1.8.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
