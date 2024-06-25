@@ -6,9 +6,11 @@ import {containerStyles} from '../../styles/commonStyles';
 import {getHeight, getWidth} from '../../styles/dimensions';
 import Timer from '../../components/Timer';
 import LongButton from '../../components/LongButton';
+import RadioButton from '../../components/RadioButton';
 
 const Home = () => {
   const [question, setQuestion] = useState<string>('');
+  const [selected, setSelected] = useState(false);
 
   const onChangeQuestion = (val: string) => {
     setQuestion(val);
@@ -32,8 +34,15 @@ const Home = () => {
         </View>
 
         <View style={[styles.encounter_container]}>
-          <Text style={[styles.short_heading]}>{'Case Counter time'}</Text>
+          <Text style={[styles.short_heading]}>{'Case Encounter time'}</Text>
           <Timer />
+          <RadioButton
+            label="Hide Timer"
+            selected={selected}
+            onPress={() => {
+              setSelected(!selected);
+            }}
+          />
         </View>
 
         <View style={{marginTop: getHeight(3)}}>
