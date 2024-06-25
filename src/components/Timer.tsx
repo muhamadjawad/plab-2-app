@@ -2,7 +2,7 @@ import React, {Component, useState} from 'react';
 import {Button, Text, TouchableOpacity, View} from 'react-native';
 import {TimerPickerModal} from 'react-native-timer-picker';
 import colors from '../styles/colors';
-import {getWidth} from '../styles/dimensions';
+import {getHeight, getWidth} from '../styles/dimensions';
 
 const Timer = (): React.JSX.Element => {
   const [showPicker, setShowPicker] = useState(false);
@@ -14,6 +14,7 @@ const Timer = (): React.JSX.Element => {
         backgroundColor: '#514242',
         alignItems: 'center',
         justifyContent: 'center',
+        marginTop: getHeight(1.5),
       }}>
       {/* <Text style={{fontSize: 18, color: "#F1F1F1"}}>
                     {alarmStringExample !== null

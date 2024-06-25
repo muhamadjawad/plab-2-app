@@ -8,7 +8,7 @@ import Timer from '../../components/Timer';
 import LongButton from '../../components/LongButton';
 
 const Home = () => {
-  const [question, setQuestion] = useState<string>('sasjssjan');
+  const [question, setQuestion] = useState<string>('');
 
   const onChangeQuestion = (val: string) => {
     setQuestion(val);
@@ -31,7 +31,14 @@ const Home = () => {
           />
         </View>
 
-        <LongButton title={'buton'} />
+        <View style={[styles.encounter_container]}>
+          <Text style={[styles.short_heading]}>{'Case Counter time'}</Text>
+          <Timer />
+        </View>
+
+        <View style={{marginTop: getHeight(3)}}>
+          <LongButton title={'Start'} />
+        </View>
       </View>
     </View>
   );
@@ -49,6 +56,9 @@ const styles = StyleSheet.create({
     color: colors.black,
     fontSize: getWidth(3.5),
     fontWeight: 'bold',
+  },
+  encounter_container: {
+    marginTop: getHeight(1),
   },
 });
 
