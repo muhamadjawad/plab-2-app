@@ -6,7 +6,7 @@ import AppHeader from '@src/components/AppHeader';
 const QuestionReading = () => {
     return (
         <View>
-            <AppHeader title="Read Question Time" />
+            <AppHeader title="Read Question Time"  showBackIcon={true}/>
         </View>
         );
 }
