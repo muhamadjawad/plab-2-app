@@ -5,11 +5,12 @@ import {getHeight} from '../styles/dimensions';
 
 type LongButtonPropsType = {
   title: string;
+  onPress?:()=>void
 };
 
-const LongButton = ({title}: LongButtonPropsType) => {
+const LongButton = ({title,onPress}: LongButtonPropsType) => {
   return (
-    <TouchableOpacity style={[styles.container]}>
+    <TouchableOpacity style={[styles.container]} onPress={onPress}>
       <Text style={[styles.text]}>{title}</Text>
     </TouchableOpacity>
   );

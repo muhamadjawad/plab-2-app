@@ -1,16 +1,22 @@
-import React, {Component, useState} from 'react';
-import {StyleSheet, Text, TextInput, View} from 'react-native';
+import React, { Component, useState } from 'react';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
 import AppHeader from '../../components/AppHeader';
 import colors from '../../styles/colors';
-import {containerStyles} from '../../styles/commonStyles';
-import {getHeight, getWidth} from '../../styles/dimensions';
+import { containerStyles } from '../../styles/commonStyles';
+import { getHeight, getWidth } from '../../styles/dimensions';
 import Timer from '../../components/Timer';
 import LongButton from '../../components/LongButton';
 import RadioButton from '../../components/RadioButton';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { ENCOUNTER_ROUTE, HOME_ROUTE, QUESTION_READING_ROUTE } from '@src/utils/routeConstants';
+import { RootStackParamList } from '@src/types';
+
 
 const Home = () => {
   const [question, setQuestion] = useState<string>('');
   const [selected, setSelected] = useState(false);
+
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const onChangeQuestion = (val: string) => {
     setQuestion(val);
@@ -19,7 +25,7 @@ const Home = () => {
   return (
     <View>
       <AppHeader title="Timer Settings" />
-      <View style={[containerStyles, {paddingTop: getHeight(2)}]}>
+      <View style={[containerStyles, { paddingTop: getHeight(2) }]}>
         <View>
           <Text style={[styles.short_heading]}>{'Read Question time'}</Text>
           <Timer />
@@ -45,8 +51,8 @@ const Home = () => {
           />
         </View>
 
-        <View style={{marginTop: getHeight(3)}}>
-          <LongButton title={'Start'} />
+        <View style={{ marginTop: getHeight(3) }}>
+          <LongButton title={'Start'} onPress={() => navigation.navigate('question')} />
         </View>
       </View>
     </View>

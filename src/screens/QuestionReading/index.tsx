@@ -8,8 +8,14 @@ import { getHeight, getWidth } from '@src/styles/dimensions';
 import { containerStyles } from '@src/styles/commonStyles';
 import colors from '@src/styles/colors';
 import CountDown from '@src/components/CountDown';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '@src/types';
+import { ENCOUNTER_ROUTE } from '@src/utils/routeConstants';
 
 const QuestionReading = () => {
+
+    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
     return (
         <View>
             <AppHeader title="Read Question Time" showBackIcon={true} />
@@ -37,7 +43,7 @@ const QuestionReading = () => {
                     </View>
                 </View>
                 <View style={{ marginTop: getHeight(1) }} >
-                    <LongButton title='Enter the Room' />
+                    <LongButton title='Enter the Room' onPress={() => navigation.navigate('encounter')} />
                 </View>
             </View>
         </View>
