@@ -22,10 +22,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 4,
-    paddingVertical: getHeight(1),
+    paddingVertical: getHeight(1.5),
   },
   text: {
     color: colors.white,
+    fontSize:16
   },
 });
 export default LongButton;

@@ -14,9 +14,6 @@ const QuestionReading = () => {
         <View>
             <AppHeader title="Read Question Time" showBackIcon={true} />
             <View style={[containerStyles]}  >
-
-
-
                 <View style={[styles.countdown_container]} >
                     <View style={[styles.countdown_ops]} >
                         <TouchableOpacity  >
@@ -81,7 +78,7 @@ const styles = StyleSheet.create({
         elevation: 5,
         paddingHorizontal: getWidth(4),
         paddingVertical: getHeight(2),
-        marginTop:getHeight(1),
+        marginTop: getHeight(1),
         // paddingBottom: getHeight(1),
         borderRadius: 4
     },
