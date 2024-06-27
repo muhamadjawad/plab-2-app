@@ -13,9 +13,11 @@
     "@react-native-community/datetimepicker": "^8.0.1",
     "react": "18.2.0",
     "react-native": "0.74.1",
+    "react-native-countdown-circle-timer": "^3.2.1",
     "react-native-date-picker": "^5.0.4",
     "react-native-modal-datetime-picker": "^17.1.0",
     "react-native-splash-screen": "^3.3.0",
+    "react-native-svg": "^15.3.0",
     "react-native-timer-picker": "^1.8.2",
     "react-native-vector-icons": "^10.1.0"
   },

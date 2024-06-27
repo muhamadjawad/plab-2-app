@@ -5,12 +5,16 @@ import LongButton from '@src/components/LongButton';
 import { getHeight, getWidth } from '@src/styles/dimensions';
 import { containerStyles } from '@src/styles/commonStyles';
 import colors from '@src/styles/colors';
+import CountDown from '@src/components/CountDown';
 
 const QuestionReading = () => {
     return (
         <View>
             <AppHeader title="Read Question Time" showBackIcon={true} />
             <View style={[containerStyles]}  >
+
+
+                <CountDown />
                 <View style={{ marginTop: getHeight(2) }} >
                     <Text style={[styles.question_heading]}>{'Question'}</Text>
                     <View style={[styles.question_container]} >
