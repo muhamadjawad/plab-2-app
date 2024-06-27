@@ -6,9 +6,9 @@ import colors from '@src/styles/colors';
 
 const App = () => {
   useEffect(() => {
-    setTimeout(() => {
+    // setTimeout(() => {
       SplashScreen.hide();
-    }, 1000);
+    // }, 1000);
   }, []);
 
   return (
