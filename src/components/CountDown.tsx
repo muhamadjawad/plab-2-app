@@ -1,12 +1,12 @@
 import colors from '@src/styles/colors';
 import { getHeight } from '@src/styles/dimensions';
 import React, { Component } from 'react'
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
 
 const CountDown = () => {
     return (
-        <View  style={[styles.main]} >
+        <View  style={[styles.main]}    >
         <CountdownCircleTimer
             isPlaying
             duration={90}
@@ -20,14 +20,15 @@ const CountDown = () => {
 }
 const styles = StyleSheet.create({
     
-    main:{justifyContent:'center',
+    main:{
+        justifyContent:'center',
         alignItems:'center',
-        marginTop:getHeight(2)
+        marginTop:getHeight(2),
     },
     time: {
         color: colors.primary,
         fontSize: 40,
         fontWeight: 'bold'
-    }
+    },
 })
 export default CountDown;
