@@ -28,7 +28,9 @@ const Home = () => {
       <View style={[containerStyles, { paddingTop: getHeight(2) }]}>
         <View>
           <Text style={[styles.short_heading]}>{'Read Question time'}</Text>
-          <Timer />
+          <View style={{ marginTop: getHeight(1.5) }}>
+            <Timer />
+          </View>
           <TextInput
             placeholder="Add Your Question"
             value={question}
@@ -41,7 +43,9 @@ const Home = () => {
 
         <View style={[styles.encounter_container]}>
           <Text style={[styles.short_heading]}>{'Case Encounter time'}</Text>
-          <Timer />
+          <View style={{ marginTop: getHeight(1.5) }}>
+            <Timer />
+          </View>
           <RadioButton
             label="Hide Timer"
             selected={selected}
