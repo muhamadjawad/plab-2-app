@@ -1,23 +1,25 @@
 import React, { Component, useState } from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { TimerPickerModal } from 'react-native-timer-picker';
+import { TimerPickerModal, TimerPickerProps } from 'react-native-timer-picker';
 import colors from '../styles/colors';
-import { getHeight, getWidth } from '../styles/dimensions';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import { getHeight, getWidth } from '@src/styles/dimensions';
+import Icon from 'react-native-vector-icons/Entypo';
+import { TimerType } from '@src/types';
+
 
 const Timer = (): React.JSX.Element => {
   const [showPicker, setShowPicker] = useState(false);
-  const [alarmString, setAlarmString] = useState<string | null>(null);
+  const [alarmString, setAlarmString] = useState<TimerType>({ hours: 0, minutes: 1, seconds: 30 });
 
   return (
     <>
       <View style={[styles.timer_container]} >
         <TouchableOpacity onPress={() => setShowPicker(true)} >
-          <Text style={[styles.time]} >{'01:20'}</Text>
+          <Text style={[styles.time]} >{`${alarmString.minutes}:${alarmString.seconds}`}</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{ marginLeft: getWidth(2) }} >
-          <Icon name="edit" size={getWidth(6)} color={colors.black} />
-        </TouchableOpacity>
+        {/* <TouchableOpacity style={{ marginLeft: getWidth(2) }} >
+          <Icon name="edit" size={getWidth(4)} color={colors.gray} />
+        </TouchableOpacity> */}
 
       </View>
       <View
@@ -26,40 +28,10 @@ const Timer = (): React.JSX.Element => {
           justifyContent: 'center',
           marginTop: getHeight(1.5),
         }}>
-
-        <TouchableOpacity activeOpacity={0.7} onPress={() => setShowPicker(true)}>
-          <View style={{ alignItems: 'center' }}>
-            {alarmString !== null ? (
-              <Text style={{ color: 'red', fontSize: 48 }}>{'alarmString'}</Text>
-            ) : null}
-            <TouchableOpacity
-              activeOpacity={0.7}
-            >
-              <View style={{ marginTop: 30 }}>
-                <Text
-                  style={{
-                    paddingVertical: 10,
-                    paddingHorizontal: 18,
-                    borderWidth: 1,
-                    borderRadius: 10,
-                    fontSize: 16,
-                    overflow: 'hidden',
-                    borderColor: '#C2C2C2',
-                    color: '#C2C2C2',
-                  }}>
-                  Set Alarm 🔔
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </TouchableOpacity>
-        {/* sas
-      
-      */}
         <TimerPickerModal
           visible={showPicker}
           setIsVisible={setShowPicker}
-          onConfirm={(pickedDuration: any) => {
+          onConfirm={(pickedDuration: TimerType) => {
             setAlarmString(pickedDuration);
             setShowPicker(false);
           }}
@@ -111,7 +83,7 @@ const Timer = (): React.JSX.Element => {
 const styles = StyleSheet.create({
   timer_container: {
     flexDirection: 'row',
-    alignItems: 'center', justifyContent: 'space-between'
+    alignItems: 'center',
   },
   time: {
     color: colors.primary,

@@ -6,3 +6,9 @@ export type RootStackParamList = {
     'encounter': undefined;
     // [key in typeof HOME_ROUTE | typeof QUESTION_READING_ROUTE | typeof ENCOUNTER_ROUTE]: undefined;
 };
+
+export interface TimerType {
+    hours: number;
+    minutes: number;
+    seconds: number
+}
