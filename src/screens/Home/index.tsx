@@ -9,11 +9,22 @@ import LongButton from '../../components/LongButton';
 import RadioButton from '../../components/RadioButton';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { ENCOUNTER_ROUTE, HOME_ROUTE, QUESTION_READING_ROUTE } from '@src/utils/routeConstants';
-import { RootStackParamList } from '@src/types';
+import { RootStackParamList, TimerType } from '@src/types';
+
+type TimerStatusType = {
+  time: TimerType,
+  hide: boolean
+}
 
 
 const Home = () => {
   const [question, setQuestion] = useState<string>('');
+  const [questionTime, setQuestionTime] = useState<TimerStatusType>({ time: { hours: 0, minutes: 1, seconds: 30 }, hide: false });
+  const [caseEncounterTime, setCaseEncounterTime] = useState<TimerStatusType>({ time: { hours: 0, minutes: 1, seconds: 30 }, hide: false });
+  console.log("questionTime", questionTime);
+  console.log("caseEncounterTime", caseEncounterTime)
+
+
   const [selected, setSelected] = useState(false);
 
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -22,6 +33,14 @@ const Home = () => {
     setQuestion(val);
   };
 
+  const onChangeQuestionTime = (time: TimerType) => {
+    setQuestionTime({ ...questionTime, time: time })
+  }
+
+  const onChangeCaseEncounterTime = (time: TimerType) => {
+    setCaseEncounterTime({ ...questionTime, time: time })
+  }
+
   return (
     <View>
       <AppHeader title="Timer Settings" />
@@ -29,8 +48,16 @@ const Home = () => {
         <View  >
           <Text style={[styles.short_heading]}>{'Read Question time'}</Text>
           <View style={{ marginTop: getHeight(1.5) }}>
-            <Timer />
+            <Timer time={questionTime.time} onChangeTimer={onChangeQuestionTime} />
           </View>
+          <RadioButton
+            label="Hide Timer"
+            selected={questionTime.hide}
+            onPress={() => {
+              setSelected(!selected);
+            }}
+          />
+
           <TextInput
             placeholder="Add Your Question"
             value={question}
@@ -39,16 +66,17 @@ const Home = () => {
             placeholderTextColor={colors.gray}
             multiline={true}
           />
+
         </View>
 
         <View style={[styles.encounter_container]}>
           <Text style={[styles.short_heading]}>{'Case Encounter time'}</Text>
           <View style={{ marginTop: getHeight(1.5) }}>
-            <Timer />
+            <Timer time={caseEncounterTime.time} onChangeTimer={onChangeCaseEncounterTime} />
           </View>
           <RadioButton
             label="Hide Timer"
-            selected={selected}
+            selected={caseEncounterTime.hide}
             onPress={() => {
               setSelected(!selected);
             }}
@@ -67,7 +95,7 @@ const styles = StyleSheet.create({
   question_input: {
     borderColor: colors.primary,
     borderWidth: 1,
-    borderRadius:4,
+    borderRadius: 4,
     color: colors.primary,
     fontSize: getWidth(3.5),
     marginTop: getHeight(1),

@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   radioContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 10,
+    // marginVertical: 10,
   },
   outerCircle: {
     height: 17,

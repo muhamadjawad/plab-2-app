@@ -7,16 +7,19 @@ import Icon from 'react-native-vector-icons/Entypo';
 import { TimerType } from '@src/types';
 import { toDoubleDigit } from '@src/utils/funcs';
 
+type TimerProps = {
+  time: TimerType;
+  onChangeTimer: any
+}
 
-const Timer = (): React.JSX.Element => {
+const Timer: React.FC<TimerProps> = ({ time, onChangeTimer }) => {
   const [showPicker, setShowPicker] = useState(false);
-  const [alarmString, setAlarmString] = useState<TimerType>({ hours: 0, minutes: 1, seconds: 30 });
 
   return (
     <>
       <View style={[styles.timer_container]} >
         <TouchableOpacity onPress={() => setShowPicker(true)} >
-          <Text style={[styles.time]} >{`${toDoubleDigit(alarmString.minutes)}:${toDoubleDigit(alarmString.seconds)}`}</Text>
+          <Text style={[styles.time]} >{`${toDoubleDigit(time.minutes)}:${toDoubleDigit(time.seconds)}`}</Text>
         </TouchableOpacity>
         {/* <TouchableOpacity style={{ marginLeft: getWidth(2) }} >
           <Icon name="edit" size={getWidth(4)} color={colors.gray} />
@@ -33,7 +36,7 @@ const Timer = (): React.JSX.Element => {
           visible={showPicker}
           setIsVisible={setShowPicker}
           onConfirm={(pickedDuration: TimerType) => {
-            setAlarmString(pickedDuration);
+            onChangeTimer(pickedDuration);
             setShowPicker(false);
           }}
           modalTitle="Pick Duration"
