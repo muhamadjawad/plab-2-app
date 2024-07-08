@@ -5,17 +5,20 @@ import colors from '../styles/colors';
 import { getHeight, getWidth } from '@src/styles/dimensions';
 import Icon from 'react-native-vector-icons/Entypo';
 import { TimerType } from '@src/types';
+import { toDoubleDigit } from '@src/utils/funcs';
 
 
 const Timer = (): React.JSX.Element => {
   const [showPicker, setShowPicker] = useState(false);
   const [alarmString, setAlarmString] = useState<TimerType>({ hours: 0, minutes: 1, seconds: 30 });
 
+
+  console.log("toDoubleDigit(", toDoubleDigit(0))
   return (
     <>
       <View style={[styles.timer_container]} >
         <TouchableOpacity onPress={() => setShowPicker(true)} >
-          <Text style={[styles.time]} >{`${alarmString.minutes}:${alarmString.seconds}`}</Text>
+          <Text style={[styles.time]} >{`${toDoubleDigit(alarmString.minutes)}:${toDoubleDigit(alarmString.seconds)}`}</Text>
         </TouchableOpacity>
         {/* <TouchableOpacity style={{ marginLeft: getWidth(2) }} >
           <Icon name="edit" size={getWidth(4)} color={colors.gray} />
@@ -84,6 +87,7 @@ const styles = StyleSheet.create({
   timer_container: {
     flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor: 'red'
   },
   time: {
     color: colors.primary,
