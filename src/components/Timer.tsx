@@ -12,8 +12,6 @@ const Timer = (): React.JSX.Element => {
   const [showPicker, setShowPicker] = useState(false);
   const [alarmString, setAlarmString] = useState<TimerType>({ hours: 0, minutes: 1, seconds: 30 });
 
-
-  console.log("toDoubleDigit(", toDoubleDigit(0))
   return (
     <>
       <View style={[styles.timer_container]} >
@@ -87,7 +85,6 @@ const styles = StyleSheet.create({
   timer_container: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'red'
   },
   time: {
     color: colors.primary,

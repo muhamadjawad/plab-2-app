@@ -26,7 +26,7 @@ const Home = () => {
     <View>
       <AppHeader title="Timer Settings" />
       <View style={[containerStyles, { paddingTop: getHeight(2) }]}>
-        <View>
+        <View  >
           <Text style={[styles.short_heading]}>{'Read Question time'}</Text>
           <View style={{ marginTop: getHeight(1.5) }}>
             <Timer />
@@ -67,9 +67,10 @@ const styles = StyleSheet.create({
   question_input: {
     borderColor: colors.primary,
     borderWidth: 1,
+    borderRadius:4,
     color: colors.primary,
     fontSize: getWidth(3.5),
-    marginTop: getHeight(2),
+    marginTop: getHeight(1),
   },
   short_heading: {
     color: colors.black,
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   encounter_container: {
-    marginTop: getHeight(1),
+    marginTop: getHeight(7),
   },
 });
 
