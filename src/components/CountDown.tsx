@@ -6,10 +6,9 @@ import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
 
 type CountDownProps = {
     duration: number;
-    isPlaying?: boolean
 }
 
-const CountDown = ({ duration = 90, isPlaying = true }: CountDownProps) => {
+const CountDown = ({ duration = 90 }: CountDownProps) => {
     return (
         <View style={[styles.main]}    >
             <CountdownCircleTimer

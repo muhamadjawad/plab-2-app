@@ -4,15 +4,12 @@ import React, { useEffect, useState } from 'react';
 import Sound from 'react-native-sound';
 
 type UseTimerProps = {
-    source?: 'home' | 'questionReading';
+    source?: 'home' | 'questionReading' | 'caseEncounter';
 };
 
 const UseTimer = ({ source = 'home' }: UseTimerProps) => {
     const { questionTime, setQuestionTime, caseEncounterTime, setCaseEncounterTime, question, setQuestion } = useTimerContext();
     const [isPlaying, setIsPlaying] = useState<boolean>(true);
-
-
-
 
     useEffect(() => {
         let durationInterval: any;
@@ -23,7 +20,16 @@ const UseTimer = ({ source = 'home' }: UseTimerProps) => {
                     time: decrementTime(prevState.time),
                 }));
             }, 1000);
-        } else {
+        } else if (source === 'caseEncounter' && isPlaying) {
+            durationInterval = setInterval(() => {
+                setCaseEncounterTime(prevState => ({
+                    ...prevState,
+                    time: decrementTime(prevState.time),
+                }));
+            }, 1000);
+        }
+
+        else {
             clearInterval(durationInterval);
         }
 

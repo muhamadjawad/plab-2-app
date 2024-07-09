@@ -14,18 +14,20 @@ import UseTimer from '@src/hook/useTimer';
 import { convertTimeToSeconds } from '@src/utils/funcs';
 import SelectTimerModal from '@src/components/SelectTimerModal';
 import Sound from 'react-native-sound';
+import useSound from '@src/hook/useSound';
 
 const QuestionReading = () => {
 
     const [showPicker, setShowPicker] = useState<boolean>(false)
     const [isQuestionTimeEdited, setIsQuestionTimeEdited] = useState<boolean>(false)
-    const { questionTime, question, toggleHideButton, onChangeTime, togglePlay, isPlaying } = UseTimer({ source: 'questionReading' });
 
+    const { questionTime, question, toggleHideButton, onChangeTime, togglePlay, isPlaying } = UseTimer({ source: 'questionReading' });
+    const { playSound } = useSound()
 
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
     useEffect(() => {
-        playSound()
+        playSound('begin.mp3')
     }, []);
 
     useEffect(() => {
@@ -38,38 +40,9 @@ const QuestionReading = () => {
     useEffect(() => {
         if (isQuestionTimeEdited) {
             setIsQuestionTimeEdited(false)
-            playSound()
+            playSound('begin.mp3')
         }
     }, [isQuestionTimeEdited])
-
-
-    const playSound = () => {
-        Sound.setCategory('Playback');
-
-        // Load the sound file
-        const sound = new Sound('begin.mp3', Sound.MAIN_BUNDLE, (error) => {
-            if (error) {
-                console.log('Failed to load the sound', error);
-                return;
-            }
-
-            // Play the sound
-            setTimeout(() => {
-                sound.play((success) => {
-                    if (success) {
-                        // console.log('Successfully finished playing');
-                    } else {
-                        // console.log('Playback failed due to audio decoding errors');
-                    }
-                });
-            }, 100);
-        });
-
-        // Cleanup function to release the sound object
-        return () => {
-            sound.release();
-        };
-    };
 
 
     const onQuestionTimeOver = () => {
@@ -96,7 +69,7 @@ const QuestionReading = () => {
                         </TouchableOpacity>
                     </View>
                     {!questionTime.hide && <View >
-                        <CountDown duration={convertTimeToSeconds(questionTime.time)} isPlaying={isPlaying} />
+                        <CountDown duration={convertTimeToSeconds(questionTime.time)} />
                     </View>}
                 </View>
                 <View style={{ marginTop: getHeight(2) }} >
