@@ -18,12 +18,32 @@ import Sound from 'react-native-sound';
 const QuestionReading = () => {
 
     const [showPicker, setShowPicker] = useState<boolean>(false)
-
+    const [isQuestionTimeEdited, setIsQuestionTimeEdited] = useState<boolean>(false)
     const { questionTime, question, toggleHideButton, onChangeTime, togglePlay, isPlaying } = UseTimer({ source: 'questionReading' });
+
 
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
     useEffect(() => {
+        playSound()
+    }, []);
+
+    useEffect(() => {
+        if (questionTime.time.seconds === 0 && questionTime.time.minutes === 0) {
+            //means time over
+            onQuestionTimeOver()
+        }
+    }, [questionTime.time])
+
+    useEffect(() => {
+        if (isQuestionTimeEdited) {
+            setIsQuestionTimeEdited(false)
+            playSound()
+        }
+    }, [isQuestionTimeEdited])
+
+
+    const playSound = () => {
         Sound.setCategory('Playback');
 
         // Load the sound file
@@ -43,21 +63,26 @@ const QuestionReading = () => {
                     }
                 });
             }, 100);
-
-
         });
 
         // Cleanup function to release the sound object
         return () => {
             sound.release();
         };
-    }, []);
+    };
+
+
+    const onQuestionTimeOver = () => {
+        goToEncounterScreen()
+    }
+
+    const goToEncounterScreen = () => navigation.navigate('encounter')
 
     return (
         <View>
             <AppHeader title="Read Question Time" showBackIcon={true} />
             <View style={[containerStyles]}  >
-                <SelectTimerModal showPicker={showPicker} setShowPicker={setShowPicker} onChangeTimer={(time: TimerType) => onChangeTime(time, 'questionTime')} />
+                <SelectTimerModal showPicker={showPicker} setShowPicker={setShowPicker} onChangeTimer={(time: TimerType) => { onChangeTime(time, 'questionTime'); setIsQuestionTimeEdited(true) }} />
                 <View style={[styles.countdown_container]} >
                     <View style={[styles.countdown_ops]} >
                         <TouchableOpacity onPress={() => toggleHideButton('questionTime')}   >
@@ -81,7 +106,7 @@ const QuestionReading = () => {
                     </View>
                 </View>
                 <View style={{ marginTop: getHeight(1) }} >
-                    <LongButton title='Enter the Room' onPress={() => navigation.navigate('encounter')} />
+                    <LongButton title='Enter the Room' onPress={goToEncounterScreen} />
                 </View>
             </View>
         </View>
