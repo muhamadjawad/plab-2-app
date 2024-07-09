@@ -10,6 +10,7 @@ import RadioButton from '../../components/RadioButton';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { ENCOUNTER_ROUTE, HOME_ROUTE, QUESTION_READING_ROUTE } from '@src/utils/routeConstants';
 import { RootStackParamList, TimerType } from '@src/types';
+import UseTimer from '@src/hook/useTimer';
 
 type TimerStatusType = {
   time: TimerType,
@@ -18,28 +19,12 @@ type TimerStatusType = {
 
 
 const Home = () => {
-  const [question, setQuestion] = useState<string>('');
-  const [questionTime, setQuestionTime] = useState<TimerStatusType>({ time: { hours: 0, minutes: 1, seconds: 30 }, hide: false });
-  const [caseEncounterTime, setCaseEncounterTime] = useState<TimerStatusType>({ time: { hours: 0, minutes: 1, seconds: 30 }, hide: false });
-  console.log("questionTime", questionTime);
-  console.log("caseEncounterTime", caseEncounterTime)
-
-
-  const [selected, setSelected] = useState(false);
 
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-  const onChangeQuestion = (val: string) => {
-    setQuestion(val);
-  };
-
-  const onChangeQuestionTime = (time: TimerType) => {
-    setQuestionTime({ ...questionTime, time: time })
-  }
-
-  const onChangeCaseEncounterTime = (time: TimerType) => {
-    setCaseEncounterTime({ ...questionTime, time: time })
-  }
+  const { onChangeTime, toggleHideButton,
+    onChangeQuestion, questionTime,
+    caseEncounterTime, question } = UseTimer()
 
   return (
     <View>
@@ -48,14 +33,12 @@ const Home = () => {
         <View  >
           <Text style={[styles.short_heading]}>{'Read Question time'}</Text>
           <View style={{ marginTop: getHeight(1.5) }}>
-            <Timer time={questionTime.time} onChangeTimer={onChangeQuestionTime} />
+            <Timer time={questionTime.time} onChangeTimer={(time: TimerType) => onChangeTime(time, 'questionTime')} />
           </View>
           <RadioButton
             label="Hide Timer"
             selected={questionTime.hide}
-            onPress={() => {
-              setSelected(!selected);
-            }}
+            onPress={() => toggleHideButton('questionTime')}
           />
 
           <TextInput
@@ -72,14 +55,12 @@ const Home = () => {
         <View style={[styles.encounter_container]}>
           <Text style={[styles.short_heading]}>{'Case Encounter time'}</Text>
           <View style={{ marginTop: getHeight(1.5) }}>
-            <Timer time={caseEncounterTime.time} onChangeTimer={onChangeCaseEncounterTime} />
+            <Timer time={caseEncounterTime.time} onChangeTimer={(time: TimerType) => onChangeTime(time, 'caseEncounterTime')} />
           </View>
           <RadioButton
             label="Hide Timer"
             selected={caseEncounterTime.hide}
-            onPress={() => {
-              setSelected(!selected);
-            }}
+            onPress={() => toggleHideButton('caseEncounterTime')}
           />
         </View>
 

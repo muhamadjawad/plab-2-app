@@ -1,26 +1,23 @@
-import React, { Component, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
-import QuestionReading from '@src/screens/QuestionReading';
-import colors from '@src/styles/colors';
-import CaseEncounter from '@src/screens/CaseEncounter';
 import { NavigationContainer } from '@react-navigation/native';
 import MainNavigator from '@src/navigation';
-// import MainNavigator from './src/navigation';
-
+import colors from '@src/styles/colors';
+import { TimerProvider } from '@src/context/TimerContext'; // Adjust the import path as needed
 
 const App = () => {
   useEffect(() => {
-    // setTimeout(() => {
     SplashScreen.hide();
-    // }, 1000);
   }, []);
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.white }}>
-      <NavigationContainer>
-        <MainNavigator />
-      </NavigationContainer>
+      <TimerProvider>
+        <NavigationContainer>
+          <MainNavigator />
+        </NavigationContainer>
+      </TimerProvider>
     </View>
   );
 };

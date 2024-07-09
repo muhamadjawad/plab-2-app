@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -10,10 +10,11 @@ import colors from '@src/styles/colors';
 import CountDown from '@src/components/CountDown';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '@src/types';
-import { ENCOUNTER_ROUTE } from '@src/utils/routeConstants';
+import UseTimer from '@src/hook/useTimer';
 
 const QuestionReading = () => {
 
+    const { questionTime, question, toggleHideButton } = UseTimer();
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
     return (
@@ -22,8 +23,8 @@ const QuestionReading = () => {
             <View style={[containerStyles]}  >
                 <View style={[styles.countdown_container]} >
                     <View style={[styles.countdown_ops]} >
-                        <TouchableOpacity  >
-                            <Icon name={true ? "eye-slash" : "eye"} size={getWidth(6)} color={colors.black} />
+                        <TouchableOpacity onPress={() => toggleHideButton('questionTime')}   >
+                            <Icon name={questionTime.hide ? "eye-slash" : "eye"} size={getWidth(6)} color={colors.black} />
                         </TouchableOpacity>
                         <TouchableOpacity  >
                             <Icon name={true ? "play" : "pause"} size={getWidth(6)} color={colors.black} />
@@ -39,7 +40,7 @@ const QuestionReading = () => {
                 <View style={{ marginTop: getHeight(2) }} >
                     <Text style={[styles.question_heading]}>{'Question'}</Text>
                     <View style={[styles.question_container]} >
-                        <Text style={[styles.question]}>{'this is actually your question that you asked question that you asked question that you asked question that you asked'}</Text>
+                        <Text style={[styles.question]}>{question}</Text>
                     </View>
                 </View>
                 <View style={{ marginTop: getHeight(1) }} >
