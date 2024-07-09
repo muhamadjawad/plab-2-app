@@ -4,15 +4,19 @@ import React, { Component } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
 
-const CountDown = () => {
+type CountDownProps = {
+    duration: number
+}
+
+const CountDown = ({ duration = 90 }: CountDownProps) => {
     return (
         <View style={[styles.main]}    >
             <CountdownCircleTimer
                 isPlaying
-                duration={90}
+                duration={duration}
                 colors={['#3bb44a', '#3bb14a', '#3bb44a', '#3bb44f']}
                 colorsTime={[7, 5, 2, 0]}
-                // isSmoothColorTransition={true}
+            // isSmoothColorTransition={true}
             // isGrowing={true}
             >
                 {({ remainingTime }) => {

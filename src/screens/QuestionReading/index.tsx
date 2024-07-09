@@ -11,6 +11,7 @@ import CountDown from '@src/components/CountDown';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '@src/types';
 import UseTimer from '@src/hook/useTimer';
+import { convertTimeToSeconds } from '@src/utils/funcs';
 
 const QuestionReading = () => {
 
@@ -34,7 +35,7 @@ const QuestionReading = () => {
                         </TouchableOpacity>
                     </View>
                     <View >
-                        <CountDown />
+                        <CountDown duration={convertTimeToSeconds(questionTime.time)} />
                     </View>
                 </View>
                 <View style={{ marginTop: getHeight(2) }} >
