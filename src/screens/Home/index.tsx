@@ -24,7 +24,7 @@ const Home = () => {
 
   const { onChangeTime, toggleHideButton,
     onChangeQuestion, questionTime,
-    caseEncounterTime, question } = UseTimer()
+    caseEncounterTime, question } = UseTimer({ source:'home' })
 
   return (
     <View>

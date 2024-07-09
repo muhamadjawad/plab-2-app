@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -17,12 +17,11 @@ import SelectTimerModal from '@src/components/SelectTimerModal';
 const QuestionReading = () => {
 
     const [showPicker, setShowPicker] = useState<boolean>(false)
-    const [isPlaying, setIsPlaying] = useState<boolean>(true)
-    const { questionTime, question, toggleHideButton, onChangeTime } = UseTimer();
+
+    const { questionTime, question, toggleHideButton, onChangeTime, togglePlay, isPlaying } = UseTimer({ source: 'questionReading' });
 
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-    console.log("questionTime", questionTime.time, "Duration", convertTimeToSeconds(questionTime.time))
     return (
         <View>
             <AppHeader title="Read Question Time" showBackIcon={true} />
@@ -33,7 +32,7 @@ const QuestionReading = () => {
                         <TouchableOpacity onPress={() => toggleHideButton('questionTime')}   >
                             <Icon name={questionTime.hide ? "eye-slash" : "eye"} size={getWidth(6)} color={colors.black} />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => setIsPlaying(!isPlaying)}  >
+                        <TouchableOpacity onPress={togglePlay}  >
                             <Icon name={isPlaying ? "pause" : "play"} size={getWidth(6)} color={colors.black} />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => setShowPicker(true)}  >

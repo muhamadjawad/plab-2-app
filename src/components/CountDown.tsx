@@ -14,7 +14,7 @@ const CountDown = ({ duration = 90, isPlaying = true }: CountDownProps) => {
         <View style={[styles.main]}    >
             <CountdownCircleTimer
                 updateInterval={1}
-                isPlaying={isPlaying}
+                isPlaying={false}
                 duration={duration}
                 colors={['#3bb44a', '#3bb14a', '#3bb44a', '#3bb44f']}
                 colorsTime={[7, 5, 2, 0]}
