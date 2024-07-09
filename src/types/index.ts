@@ -12,3 +12,8 @@ export interface TimerType {
     minutes: number;
     seconds: number
 }
+
+export interface TimerStatusType  {
+    time: TimerType;
+    hide: boolean;
+};

@@ -6,6 +6,7 @@ import { getHeight, getWidth } from '@src/styles/dimensions';
 import Icon from 'react-native-vector-icons/Entypo';
 import { TimerType } from '@src/types';
 import { toDoubleDigit } from '@src/utils/funcs';
+import SelectTimerModal from '@src/components/SelectTimerModal';
 
 type TimerProps = {
   time: TimerType;
@@ -24,62 +25,10 @@ const Timer: React.FC<TimerProps> = ({ time, onChangeTimer }) => {
         {/* <TouchableOpacity style={{ marginLeft: getWidth(2) }} >
           <Icon name="edit" size={getWidth(4)} color={colors.gray} />
         </TouchableOpacity> */}
+        <SelectTimerModal showPicker={showPicker} onChangeTimer={onChangeTimer} setShowPicker={setShowPicker} />
 
       </View>
-      <View
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginTop: getHeight(1.5),
-        }}>
-        <TimerPickerModal
-          visible={showPicker}
-          setIsVisible={setShowPicker}
-          onConfirm={(pickedDuration: TimerType) => {
-            onChangeTimer(pickedDuration);
-            setShowPicker(false);
-          }}
-          modalTitle="Pick Duration"
-          onCancel={() => setShowPicker(false)}
-          minuteLimit={{ max: 2, min: 0 }}
-          styles={{
-            theme: 'light',
-            backgroundColor: colors.white,
-            button: {
-              borderColor: 'yellow',
-              borderWidth: 0,
-              borderRadius: 2,
-              fontSize: getWidth(3),
-            },
-            confirmButton: {
-              backgroundColor: colors.primary,
-              color: colors.white,
-            },
-            cancelButton: {
-              backgroundColor: colors.white,
-              borderWidth: 1,
-              borderColor: colors.primary,
-              color: colors.primary,
-            },
-            modalTitle: {
-              fontSize: getWidth(4.2),
-            },
-            pickerContainer: {},
 
-            pickerItem: {
-              fontSize: getWidth(6),
-            },
-            pickerLabel: {
-              color: colors.gray,
-            },
-          }}
-          modalProps={{
-            overlayOpacity: 0.1,
-          }}
-          hideHours
-          closeOnOverlayPress
-        />
-      </View>
     </>
   );
 

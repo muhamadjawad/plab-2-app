@@ -1,10 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { TimerType } from '@src/types';
-
-type TimerStatusType = {
-  time: TimerType;
-  hide: boolean;
-};
+import { TimerStatusType, TimerType } from '@src/types';
 
 interface TimerContextProps {
   questionTime: TimerStatusType;
