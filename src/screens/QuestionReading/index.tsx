@@ -39,9 +39,9 @@ const QuestionReading = () => {
                             <Icon name="edit" size={getWidth(6)} color={colors.black} />
                         </TouchableOpacity>
                     </View>
-                    <View >
+                    {!questionTime.hide && <View >
                         <CountDown duration={convertTimeToSeconds(questionTime.time)} isPlaying={isPlaying} />
-                    </View>
+                    </View>}
                 </View>
                 <View style={{ marginTop: getHeight(2) }} >
                     <Text style={[styles.question_heading]}>{'Question'}</Text>
