@@ -1,6 +1,7 @@
 import { useTimerContext } from '@src/context/TimerContext';
 import { TimerType } from '@src/types';
 import React, { useEffect, useState } from 'react';
+import Sound from 'react-native-sound';
 
 type UseTimerProps = {
     source?: 'home' | 'questionReading';
@@ -9,6 +10,9 @@ type UseTimerProps = {
 const UseTimer = ({ source = 'home' }: UseTimerProps) => {
     const { questionTime, setQuestionTime, caseEncounterTime, setCaseEncounterTime, question, setQuestion } = useTimerContext();
     const [isPlaying, setIsPlaying] = useState<boolean>(true);
+
+
+
 
     useEffect(() => {
         let durationInterval: any;

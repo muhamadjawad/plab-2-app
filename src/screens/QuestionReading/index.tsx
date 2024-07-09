@@ -13,6 +13,7 @@ import { RootStackParamList, TimerType } from '@src/types';
 import UseTimer from '@src/hook/useTimer';
 import { convertTimeToSeconds } from '@src/utils/funcs';
 import SelectTimerModal from '@src/components/SelectTimerModal';
+import Sound from 'react-native-sound';
 
 const QuestionReading = () => {
 
@@ -21,6 +22,36 @@ const QuestionReading = () => {
     const { questionTime, question, toggleHideButton, onChangeTime, togglePlay, isPlaying } = UseTimer({ source: 'questionReading' });
 
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
+    useEffect(() => {
+        Sound.setCategory('Playback');
+
+        // Load the sound file
+        const sound = new Sound('begin.mp3', Sound.MAIN_BUNDLE, (error) => {
+            if (error) {
+                console.log('Failed to load the sound', error);
+                return;
+            }
+
+            // Play the sound
+            setTimeout(() => {
+                sound.play((success) => {
+                    if (success) {
+                        // console.log('Successfully finished playing');
+                    } else {
+                        // console.log('Playback failed due to audio decoding errors');
+                    }
+                });
+            }, 100);
+
+
+        });
+
+        // Cleanup function to release the sound object
+        return () => {
+            sound.release();
+        };
+    }, []);
 
     return (
         <View>
