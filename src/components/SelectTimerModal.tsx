@@ -7,7 +7,7 @@ import { TimerPickerModal, TimerPickerProps } from 'react-native-timer-picker';
 
 type SelectTimerModalProps = {
     showPicker: boolean;
-    onChangeTimer: any;
+    onChangeTimer?: any;
     setShowPicker: React.Dispatch<React.SetStateAction<boolean>>;
 }
 

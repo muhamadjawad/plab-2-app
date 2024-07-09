@@ -1,18 +1,20 @@
 import colors from '@src/styles/colors';
 import { getHeight } from '@src/styles/dimensions';
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
 
 type CountDownProps = {
-    duration: number
+    duration: number;
+    isPlaying?: boolean
 }
 
-const CountDown = ({ duration = 90 }: CountDownProps) => {
+const CountDown = ({ duration = 90, isPlaying = true }: CountDownProps) => {
     return (
         <View style={[styles.main]}    >
             <CountdownCircleTimer
-                isPlaying
+                updateInterval={1}
+                isPlaying={isPlaying}
                 duration={duration}
                 colors={['#3bb44a', '#3bb14a', '#3bb44a', '#3bb44f']}
                 colorsTime={[7, 5, 2, 0]}

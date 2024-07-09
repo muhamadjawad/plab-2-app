@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -9,33 +9,39 @@ import { containerStyles } from '@src/styles/commonStyles';
 import colors from '@src/styles/colors';
 import CountDown from '@src/components/CountDown';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { RootStackParamList } from '@src/types';
+import { RootStackParamList, TimerType } from '@src/types';
 import UseTimer from '@src/hook/useTimer';
 import { convertTimeToSeconds } from '@src/utils/funcs';
+import SelectTimerModal from '@src/components/SelectTimerModal';
 
 const QuestionReading = () => {
 
-    const { questionTime, question, toggleHideButton } = UseTimer();
+    const [showPicker, setShowPicker] = useState<boolean>(false)
+    const [isPlaying, setIsPlaying] = useState<boolean>(true)
+    const { questionTime, question, toggleHideButton, onChangeTime } = UseTimer();
+
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
+    console.log("questionTime", questionTime.time, "Duration", convertTimeToSeconds(questionTime.time))
     return (
         <View>
             <AppHeader title="Read Question Time" showBackIcon={true} />
             <View style={[containerStyles]}  >
+                <SelectTimerModal showPicker={showPicker} setShowPicker={setShowPicker} onChangeTimer={(time: TimerType) => onChangeTime(time, 'questionTime')} />
                 <View style={[styles.countdown_container]} >
                     <View style={[styles.countdown_ops]} >
                         <TouchableOpacity onPress={() => toggleHideButton('questionTime')}   >
                             <Icon name={questionTime.hide ? "eye-slash" : "eye"} size={getWidth(6)} color={colors.black} />
                         </TouchableOpacity>
-                        <TouchableOpacity  >
-                            <Icon name={true ? "play" : "pause"} size={getWidth(6)} color={colors.black} />
+                        <TouchableOpacity onPress={() => setIsPlaying(!isPlaying)}  >
+                            <Icon name={isPlaying ? "pause" : "play"} size={getWidth(6)} color={colors.black} />
                         </TouchableOpacity>
-                        <TouchableOpacity  >
+                        <TouchableOpacity onPress={() => setShowPicker(true)}  >
                             <Icon name="edit" size={getWidth(6)} color={colors.black} />
                         </TouchableOpacity>
                     </View>
                     <View >
-                        <CountDown duration={convertTimeToSeconds(questionTime.time)} />
+                        <CountDown duration={convertTimeToSeconds(questionTime.time)} isPlaying={isPlaying} />
                     </View>
                 </View>
                 <View style={{ marginTop: getHeight(2) }} >
