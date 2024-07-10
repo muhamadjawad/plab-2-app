@@ -1,5 +1,8 @@
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { useTimerContext } from '@src/context/TimerContext';
-import { TimerType } from '@src/types';
+import useSound from '@src/hook/useSound';
+import { RootStackParamList, TimerType } from '@src/types';
+import { DEFAULT_TIMERS } from '@src/utils/constants';
 import React, { useEffect, useState } from 'react';
 import Sound from 'react-native-sound';
 
@@ -10,7 +13,10 @@ type UseTimerProps = {
 const UseTimer = ({ source = 'home' }: UseTimerProps) => {
     const { questionTime, setQuestionTime, caseEncounterTime, setCaseEncounterTime, question, setQuestion } = useTimerContext();
     const [isPlaying, setIsPlaying] = useState<boolean>(true);
-    console.log("use Timer")
+
+    const { playSound } = useSound()
+
+    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
     const onChangeTime = (time: TimerType, fieldName: string): void => {
         if (fieldName === 'questionTime') {
@@ -49,6 +55,23 @@ const UseTimer = ({ source = 'home' }: UseTimerProps) => {
 
     const togglePlay = () => setIsPlaying(!isPlaying);
 
+    const finishTask = () => {
+        playSound('move_on.mp3')
+        setTimeout(() => {
+            returnHome()
+            resetBothTimers()
+        }, 2000);
+    }
+
+    const returnHome = () => {
+        navigation.goBack()
+    }
+
+    const resetBothTimers = () => {
+        setQuestionTime({ time: { hours: DEFAULT_TIMERS.hours, minutes: DEFAULT_TIMERS.minutes, seconds: DEFAULT_TIMERS.seconds }, hide: false })
+        setCaseEncounterTime({ time: { hours: DEFAULT_TIMERS.hours, minutes: DEFAULT_TIMERS.minutes, seconds: DEFAULT_TIMERS.seconds }, hide: false })
+    }
+
     return {
         onChangeTime,
         toggleHideButton,
@@ -60,7 +83,8 @@ const UseTimer = ({ source = 'home' }: UseTimerProps) => {
         question,
         isPlaying,
         setQuestionTime,
-        decrementTime
+        decrementTime,
+        finishTask,
     };
 };
 

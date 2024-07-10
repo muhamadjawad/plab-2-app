@@ -11,14 +11,17 @@ import UseTimer from '@src/hook/useTimer';
 import Sound from 'react-native-sound';
 import useSound from '@src/hook/useSound';
 import { convertTimeToSeconds } from '@src/utils/funcs';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '@src/types';
 
 
 const CaseEncounter = () => {
 
     const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
 
-    const { toggleHideButton, caseEncounterTime, decrementTime, isPlaying, setCaseEncounterTime } = UseTimer({ source: 'caseEncounter' });
+    const { toggleHideButton, caseEncounterTime, decrementTime, isPlaying, setCaseEncounterTime, finishTask } = UseTimer({ source: 'caseEncounter' });
     const { playSound } = useSound()
+
 
     useEffect(() => {
         let sound = playSound('enter_room.mp3')
@@ -29,6 +32,7 @@ const CaseEncounter = () => {
         if (caseEncounterTime.time.seconds === 0 && caseEncounterTime.time.minutes === 0) {
             //means time over
             clearInterval(intervalId);
+            finishTask()
             playSound('move_on.mp3')
 
         }
@@ -56,9 +60,7 @@ const CaseEncounter = () => {
     }, [isPlaying]);
 
 
-    const onPressFinish = () => {
-        playSound('move_on.mp3')
-    }
+
 
     return (
         <View>
@@ -79,7 +81,7 @@ const CaseEncounter = () => {
                 </View>
 
                 <View style={{ marginTop: getHeight(2) }} >
-                    <LongButton title='Finish' onPress={onPressFinish} />
+                    <LongButton title='Finish' onPress={finishTask} />
                 </View>
             </View>
         </View>);

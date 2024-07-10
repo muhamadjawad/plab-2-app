@@ -8,7 +8,7 @@ import { getHeight, getWidth } from '@src/styles/dimensions';
 import { containerStyles } from '@src/styles/commonStyles';
 import colors from '@src/styles/colors';
 import CountDown from '@src/components/CountDown';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { NavigationProp, StackActions, useNavigation } from '@react-navigation/native';
 import { RootStackParamList, TimerType } from '@src/types';
 import UseTimer from '@src/hook/useTimer';
 import { convertTimeToSeconds } from '@src/utils/funcs';
@@ -22,7 +22,7 @@ const QuestionReading = () => {
     const [isQuestionTimeEdited, setIsQuestionTimeEdited] = useState<boolean>(false)
     const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
 
-    const { questionTime, question, toggleHideButton, onChangeTime, togglePlay, isPlaying,setQuestionTime,decrementTime } = UseTimer({ source: 'questionReading' });
+    const { questionTime, question, toggleHideButton, onChangeTime, togglePlay, isPlaying, setQuestionTime, decrementTime } = UseTimer({ source: 'questionReading' });
     const { playSound } = useSound()
 
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -71,7 +71,12 @@ const QuestionReading = () => {
         goToEncounterScreen()
     }
 
-    const goToEncounterScreen = () => navigation.navigate('encounter')
+    const goToEncounterScreen = () => {
+        navigation.dispatch(
+            StackActions.replace('encounter')
+          );
+ 
+    }
 
     return (
         <View>
