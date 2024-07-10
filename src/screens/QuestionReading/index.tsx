@@ -20,8 +20,9 @@ const QuestionReading = () => {
 
     const [showPicker, setShowPicker] = useState<boolean>(false)
     const [isQuestionTimeEdited, setIsQuestionTimeEdited] = useState<boolean>(false)
+    const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
 
-    const { questionTime, question, toggleHideButton, onChangeTime, togglePlay, isPlaying } = UseTimer({ source: 'questionReading' });
+    const { questionTime, question, toggleHideButton, onChangeTime, togglePlay, isPlaying,setQuestionTime,decrementTime } = UseTimer({ source: 'questionReading' });
     const { playSound } = useSound()
 
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -31,8 +32,29 @@ const QuestionReading = () => {
     }, []);
 
     useEffect(() => {
+        let durationInterval: NodeJS.Timeout;
+        if (isPlaying) {
+            durationInterval = setInterval(() => {
+                setQuestionTime(prevState => ({
+                    ...prevState,
+                    time: decrementTime(prevState.time),
+                }));
+            }, 1000);
+
+            setIntervalId(durationInterval)
+        } else {
+            clearInterval(durationInterval!);
+        }
+
+        return () => {
+            clearInterval(durationInterval);
+        };
+    }, [isPlaying]);
+
+    useEffect(() => {
         if (questionTime.time.seconds === 0 && questionTime.time.minutes === 0) {
             //means time over
+            clearInterval(intervalId);
             onQuestionTimeOver()
         }
     }, [questionTime.time])

@@ -1,5 +1,5 @@
 import AppHeader from '@src/components/AppHeader';
-import React, { Component, useEffect } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import LongButton from '@src/components/LongButton';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -15,26 +15,48 @@ import { convertTimeToSeconds } from '@src/utils/funcs';
 
 const CaseEncounter = () => {
 
-    const { toggleHideButton, caseEncounterTime } = UseTimer({ source: 'caseEncounter' });
+    const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
+
+    const { toggleHideButton, caseEncounterTime, decrementTime, isPlaying, setCaseEncounterTime } = UseTimer({ source: 'caseEncounter' });
     const { playSound } = useSound()
 
     useEffect(() => {
-        playSound('enter_room.mp3')
+        let sound = playSound('enter_room.mp3')
     }, [])
 
+    console.log("caseEncounterTime.time", caseEncounterTime.time)
     useEffect(() => {
         if (caseEncounterTime.time.seconds === 0 && caseEncounterTime.time.minutes === 0) {
             //means time over
+            clearInterval(intervalId);
             playSound('move_on.mp3')
+
         }
     }, [caseEncounterTime.time])
 
 
-    const onPressFinish = () => {
-        playSound('move_on.mp3')
-    }
+    useEffect(() => {
+        let durationInterval: NodeJS.Timeout;
+        if (isPlaying) {
+            durationInterval = setInterval(() => {
+                setCaseEncounterTime(prevState => ({
+                    ...prevState,
+                    time: decrementTime(prevState.time),
+                }));
+            }, 1000);
 
-    const onCaseEncounterTimeOver = () => {
+            setIntervalId(durationInterval)
+        } else {
+            clearInterval(durationInterval!);
+        }
+
+        return () => {
+            clearInterval(durationInterval);
+        };
+    }, [isPlaying]);
+
+
+    const onPressFinish = () => {
         playSound('move_on.mp3')
     }
 

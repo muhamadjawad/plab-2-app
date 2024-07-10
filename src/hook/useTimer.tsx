@@ -10,33 +10,7 @@ type UseTimerProps = {
 const UseTimer = ({ source = 'home' }: UseTimerProps) => {
     const { questionTime, setQuestionTime, caseEncounterTime, setCaseEncounterTime, question, setQuestion } = useTimerContext();
     const [isPlaying, setIsPlaying] = useState<boolean>(true);
-
-    useEffect(() => {
-        let durationInterval: any;
-        if (source === 'questionReading' && isPlaying) {
-            durationInterval = setInterval(() => {
-                setQuestionTime(prevState => ({
-                    ...prevState,
-                    time: decrementTime(prevState.time),
-                }));
-            }, 1000);
-        } else if (source === 'caseEncounter' && isPlaying) {
-            durationInterval = setInterval(() => {
-                setCaseEncounterTime(prevState => ({
-                    ...prevState,
-                    time: decrementTime(prevState.time),
-                }));
-            }, 1000);
-        }
-
-        else {
-            clearInterval(durationInterval);
-        }
-
-        return () => {
-            clearInterval(durationInterval);
-        };
-    }, [isPlaying]);
+    console.log("use Timer")
 
     const onChangeTime = (time: TimerType, fieldName: string): void => {
         if (fieldName === 'questionTime') {
@@ -82,8 +56,11 @@ const UseTimer = ({ source = 'home' }: UseTimerProps) => {
         togglePlay,
         questionTime,
         caseEncounterTime,
+        setCaseEncounterTime,
         question,
         isPlaying,
+        setQuestionTime,
+        decrementTime
     };
 };
 

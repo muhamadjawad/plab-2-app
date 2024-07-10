@@ -13,9 +13,9 @@ interface TimerContextProps {
 const TimerContext = createContext<TimerContextProps | undefined>(undefined);
 
 const TimerProvider = ({ children }: { children: ReactNode }) => {
-  const [questionTime, setQuestionTime] = useState<TimerStatusType>({ time: { hours: 0, minutes: 1, seconds: 30 }, hide: false });
+  const [questionTime, setQuestionTime] = useState<TimerStatusType>({ time: { hours: 0, minutes: 0, seconds: 10 }, hide: false });
   const [question, setQuestion] = useState<string>('');
-  const [caseEncounterTime, setCaseEncounterTime] = useState<TimerStatusType>({ time: { hours: 0, minutes: 1, seconds: 30 }, hide: false });
+  const [caseEncounterTime, setCaseEncounterTime] = useState<TimerStatusType>({ time: { hours: 0, minutes: 0, seconds: 10 }, hide: false });
 
 
   return (
