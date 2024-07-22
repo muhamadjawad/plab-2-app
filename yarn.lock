@@ -3147,6 +3147,7 @@ __metadata:
     prettier: 2.8.8
     react: 18.2.0
     react-native: 0.74.1
+    react-native-circular-progress: ^1.4.0
     react-native-countdown-circle-timer: ^3.2.1
     react-native-date-picker: ^5.0.4
     react-native-gesture-handler: ^2.17.1
@@ -8360,6 +8361,19 @@ __metadata:
   version: 17.0.2
   resolution: "react-is@npm:17.0.2"
   checksum: 9d6d111d8990dc98bc5402c1266a808b0459b5d54830bbea24c12d908b536df7883f268a7868cfaedde3dd9d4e0d574db456f84d2e6df9c4526f99bb4b5344d8
+  languageName: node
+  linkType: hard
+
+"react-native-circular-progress@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "react-native-circular-progress@npm:1.4.0"
+  dependencies:
+    prop-types: ^15.8.1
+  peerDependencies:
+    react: ">=16.0.0"
+    react-native: ">=0.50.0"
+    react-native-svg: ">=7.0.0"
+  checksum: e98425c57c82964be1b0bf8378f3fa85513013b9c9c7c3a7d4be9d193ce683cbc9877f454f08f5322d07e620faa1381a9fe8ff64f78fc295278909f329a47861
   languageName: node
   linkType: hard
 
