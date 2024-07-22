@@ -25,6 +25,7 @@ const CaseEncounter = () => {
     isPlaying,
     setCaseEncounterTime,
     finishTask,
+    togglePlay,
   } = UseTimer({source: 'caseEncounter'});
   const {playSound} = useSound();
 
@@ -80,7 +81,7 @@ const CaseEncounter = () => {
                 color={colors.black}
               />
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={togglePlay}>
               <Icon
                 name={true ? 'play' : 'pause'}
                 size={getWidth(6)}
