@@ -25,7 +25,7 @@ const QuestionReading = () => {
   const [isQuestionTimeEdited, setIsQuestionTimeEdited] =
     useState<boolean>(false);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
-  const [totalTime, setTotalTime] = useState<number>(0);
+  const [totalTime, setTotalTime] = useState<number>(300);
 
   const {
     questionTime,

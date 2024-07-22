@@ -16,7 +16,7 @@ import {RootStackParamList} from '@src/types';
 
 const CaseEncounter = () => {
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
-  const [totalTime, setTotalTime] = useState<number>(0);
+  const [totalTime, setTotalTime] = useState<number>(300);
 
   const {
     toggleHideButton,
