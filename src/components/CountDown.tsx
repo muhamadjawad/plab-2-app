@@ -1,14 +1,18 @@
 import colors from '@src/styles/colors';
 import {getHeight} from '@src/styles/dimensions';
+import {toDoubleDigit} from '@src/utils/funcs';
 import React, {Component, useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 
 type CountDownProps = {
   duration: number;
+  totalTime?: number;
 };
 
-const CountDown = ({duration = 90}: CountDownProps) => {
+const CountDown = ({duration = 90, totalTime = 300}: CountDownProps) => {
+  const fillPercentage = (duration / totalTime) * 100; // Calculate fill percentage
+
   return (
     <View style={[styles.main]}>
       <AnimatedCircularProgress
@@ -16,18 +20,20 @@ const CountDown = ({duration = 90}: CountDownProps) => {
         width={5}
         backgroundWidth={18}
         backgroundColor={colors.lightGray}
-        fill={duration}
+        fill={fillPercentage}
         tintColor={colors.primary}
         tintTransparency={true}
         rotation={0}
-        lineCap="round"
-        onAnimationComplete={() => console.log('onAnimationComplete')}>
+        lineCap="round">
         {fill => {
-          console.log('fill', fill);
-          let absoluteFill = Math.floor(fill);
+          let absoluteFill = Math.floor(duration);
           const minutes = Math.floor((absoluteFill % 3600) / 60);
           const seconds = absoluteFill % 60;
-          return <Text style={[styles.time]}>{`${minutes}:${seconds}`}</Text>;
+          return (
+            <Text style={[styles.time]}>{`${toDoubleDigit(
+              minutes,
+            )}:${toDoubleDigit(seconds)}`}</Text>
+          );
         }}
       </AnimatedCircularProgress>
     </View>
