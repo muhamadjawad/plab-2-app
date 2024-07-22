@@ -32,7 +32,7 @@ const CaseEncounter = () => {
   useEffect(() => {
     setTotalTime(convertTimeToSeconds(caseEncounterTime.time));
 
-    let sound = playSound('enter_room.mp3');
+    playSound('buzzer.mp3', () => playSound('enter_room.mp3'));
   }, []);
 
   useEffect(() => {

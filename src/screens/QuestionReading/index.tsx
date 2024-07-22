@@ -43,7 +43,7 @@ const QuestionReading = () => {
 
   useEffect(() => {
     setTotalTime(convertTimeToSeconds(questionTime.time));
-    playSound('begin.mp3');
+    playSound('buzzer.mp3', () => playSound('begin.mp3'));
   }, []);
 
   useEffect(() => {
