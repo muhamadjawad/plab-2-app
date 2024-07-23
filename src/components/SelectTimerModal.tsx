@@ -9,9 +9,10 @@ type SelectTimerModalProps = {
     showPicker: boolean;
     onChangeTimer?: any;
     setShowPicker: React.Dispatch<React.SetStateAction<boolean>>;
+    timeLimit:TimerType
 }
 
-const SelectTimerModal = ({ showPicker, onChangeTimer, setShowPicker }: SelectTimerModalProps) => {
+const SelectTimerModal = ({ showPicker, onChangeTimer, setShowPicker,timeLimit }: SelectTimerModalProps) => {
     return (<View
         style={{
             alignItems: 'center',
@@ -27,7 +28,7 @@ const SelectTimerModal = ({ showPicker, onChangeTimer, setShowPicker }: SelectTi
             }}
             modalTitle="Pick Duration"
             onCancel={() => setShowPicker(false)}
-            minuteLimit={{ max: 2, min: 0 }}
+            minuteLimit={{ max: timeLimit.minutes, min: 0 }}
             styles={{
                 theme: 'light',
                 backgroundColor: colors.white,

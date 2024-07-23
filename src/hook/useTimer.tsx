@@ -2,7 +2,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { useTimerContext } from '@src/context/TimerContext';
 import useSound from '@src/hook/useSound';
 import { RootStackParamList, TimerType } from '@src/types';
-import { DEFAULT_TIMERS } from '@src/utils/constants';
+import { DEFAULT_CASEENCOUNTER_TIME, DEFAULT_QUESTION_READING_TIME } from '@src/utils/constants';
 import React, { useEffect, useState } from 'react';
 import Sound from 'react-native-sound';
 
@@ -68,8 +68,8 @@ const UseTimer = ({ source = 'home' }: UseTimerProps) => {
     }
 
     const resetBothTimers = () => {
-        setQuestionTime({ time: { hours: DEFAULT_TIMERS.hours, minutes: DEFAULT_TIMERS.minutes, seconds: DEFAULT_TIMERS.seconds }, hide: false })
-        setCaseEncounterTime({ time: { hours: DEFAULT_TIMERS.hours, minutes: DEFAULT_TIMERS.minutes, seconds: DEFAULT_TIMERS.seconds }, hide: false })
+        setQuestionTime({ time: { hours: DEFAULT_QUESTION_READING_TIME.hours, minutes: DEFAULT_QUESTION_READING_TIME.minutes, seconds: DEFAULT_QUESTION_READING_TIME.seconds }, hide: false })
+        setCaseEncounterTime({ time: { hours: DEFAULT_CASEENCOUNTER_TIME.hours, minutes: DEFAULT_CASEENCOUNTER_TIME.minutes, seconds: DEFAULT_CASEENCOUNTER_TIME.seconds }, hide: false })
     }
 
     return {
