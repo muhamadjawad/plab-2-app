@@ -10,10 +10,11 @@ import SelectTimerModal from '@src/components/SelectTimerModal';
 
 type TimerProps = {
   time: TimerType;
-  onChangeTimer: any
+  onChangeTimer: any;
+  timeLimit: TimerType
 }
 
-const Timer: React.FC<TimerProps> = ({ time, onChangeTimer }) => {
+const Timer: React.FC<TimerProps> = ({ time, timeLimit, onChangeTimer }) => {
   const [showPicker, setShowPicker] = useState(false);
 
   return (
@@ -25,7 +26,7 @@ const Timer: React.FC<TimerProps> = ({ time, onChangeTimer }) => {
         {/* <TouchableOpacity style={{ marginLeft: getWidth(2) }} >
           <Icon name="edit" size={getWidth(4)} color={colors.gray} />
         </TouchableOpacity> */}
-        <SelectTimerModal showPicker={showPicker} onChangeTimer={onChangeTimer} setShowPicker={setShowPicker} />
+        <SelectTimerModal showPicker={showPicker} onChangeTimer={onChangeTimer} setShowPicker={setShowPicker} timeLimit={timeLimit} />
 
       </View>
 

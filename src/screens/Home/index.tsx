@@ -11,6 +11,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { ENCOUNTER_ROUTE, HOME_ROUTE, QUESTION_READING_ROUTE } from '@src/utils/routeConstants';
 import { RootStackParamList, TimerType } from '@src/types';
 import UseTimer from '@src/hook/useTimer';
+import { CASEENCOUNTER_TIME_LIMIT, QUESTION_READING_TIME_MAX_LIMIT } from '@src/utils/constants';
 
 type TimerStatusType = {
   time: TimerType,
@@ -24,7 +25,7 @@ const Home = () => {
 
   const { onChangeTime, toggleHideButton,
     onChangeQuestion, questionTime,
-    caseEncounterTime, question } = UseTimer({ source:'home' })
+    caseEncounterTime, question } = UseTimer({ source: 'home' })
 
   return (
     <View>
@@ -33,7 +34,10 @@ const Home = () => {
         <View  >
           <Text style={[styles.short_heading]}>{'Read Question time'}</Text>
           <View style={{ marginTop: getHeight(1.5) }}>
-            <Timer time={questionTime.time} onChangeTimer={(time: TimerType) => onChangeTime(time, 'questionTime')} />
+            <Timer time={questionTime.time} onChangeTimer={(time: TimerType) => onChangeTime(time, 'questionTime')}
+              timeLimit={{ hours: QUESTION_READING_TIME_MAX_LIMIT.hours, minutes: QUESTION_READING_TIME_MAX_LIMIT.minutes, seconds: QUESTION_READING_TIME_MAX_LIMIT.seconds }}
+
+            />
           </View>
           <RadioButton
             label="Hide Timer"
@@ -55,7 +59,10 @@ const Home = () => {
         <View style={[styles.encounter_container]}>
           <Text style={[styles.short_heading]}>{'Case Encounter time'}</Text>
           <View style={{ marginTop: getHeight(1.5) }}>
-            <Timer time={caseEncounterTime.time} onChangeTimer={(time: TimerType) => onChangeTime(time, 'caseEncounterTime')} />
+            <Timer time={caseEncounterTime.time} onChangeTimer={(time: TimerType) => onChangeTime(time, 'caseEncounterTime')}
+              timeLimit={{ hours: CASEENCOUNTER_TIME_LIMIT.hours, minutes: CASEENCOUNTER_TIME_LIMIT.minutes, seconds: CASEENCOUNTER_TIME_LIMIT.seconds }}
+
+            />
           </View>
           <RadioButton
             label="Hide Timer"
