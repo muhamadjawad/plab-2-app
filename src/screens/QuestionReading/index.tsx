@@ -20,12 +20,12 @@ import SelectTimerModal from '@src/components/SelectTimerModal';
 import Sound from 'react-native-sound';
 import useSound from '@src/hook/useSound';
 import {QUESTION_READING_TIME_MAX_LIMIT} from '@src/utils/constants';
+import BackgroundTimer from 'react-native-background-timer';
 
 const QuestionReading = () => {
   const [showPicker, setShowPicker] = useState<boolean>(false);
   const [isQuestionTimeEdited, setIsQuestionTimeEdited] =
     useState<boolean>(false);
-  const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
   const [totalTime, setTotalTime] = useState<number>(300);
 
   const {
@@ -37,6 +37,7 @@ const QuestionReading = () => {
     isPlaying,
     setQuestionTime,
     decrementTime,
+    clearBackgroundTimerInterval,
   } = UseTimer({source: 'questionReading'});
   const {playSound, onTimeLessThan2} = useSound();
 
@@ -50,27 +51,37 @@ const QuestionReading = () => {
   useEffect(() => {
     let durationInterval: NodeJS.Timeout;
     if (isPlaying) {
-      durationInterval = setInterval(() => {
+      BackgroundTimer.runBackgroundTimer(() => {
         setQuestionTime(prevState => ({
           ...prevState,
           time: decrementTime(prevState.time),
         }));
       }, 1000);
 
-      setIntervalId(durationInterval);
+      // durationInterval = setInterval(() => {
+      //   setQuestionTime(prevState => ({
+      //     ...prevState,
+      //     time: decrementTime(prevState.time),
+      //   }));
+      // }, 1000);
+
+      // setIntervalId(durationInterval);
     } else {
-      clearInterval(durationInterval!);
+      clearBackgroundTimerInterval();
+      // clearInterval(durationInterval!);
     }
 
     return () => {
-      clearInterval(durationInterval);
+      // clearInterval(durationInterval);
+      clearBackgroundTimerInterval();
     };
   }, [isPlaying]);
 
   useEffect(() => {
     if (questionTime.time.seconds === 0 && questionTime.time.minutes === 0) {
       //means time over
-      clearInterval(intervalId);
+      // clearInterval(intervalId);
+      clearBackgroundTimerInterval();
       onQuestionTimeOver();
     } else if (
       questionTime.time.seconds === 0 &&
