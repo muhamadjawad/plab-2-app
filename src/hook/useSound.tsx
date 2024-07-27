@@ -33,7 +33,11 @@ const useSound = () => {
     };
   };
 
-  return {playSound};
+  const onTimeLessThan2 = () => {
+    playSound('two_minutes_remaining.mp3');
+  };
+
+  return {playSound, onTimeLessThan2};
 };
 
 export default useSound;

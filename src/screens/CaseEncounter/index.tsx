@@ -27,7 +27,7 @@ const CaseEncounter = () => {
     finishTask,
     togglePlay,
   } = UseTimer({source: 'caseEncounter'});
-  const {playSound} = useSound();
+  const {playSound, onTimeLessThan2} = useSound();
 
   useEffect(() => {
     setTotalTime(convertTimeToSeconds(caseEncounterTime.time));
@@ -44,6 +44,11 @@ const CaseEncounter = () => {
       clearInterval(intervalId);
       finishTask();
       playSound('move_on.mp3');
+    } else if (
+      caseEncounterTime.time.seconds === 59 &&
+      caseEncounterTime.time.minutes === 1
+    ) {
+      onTimeLessThan2();
     }
   }, [caseEncounterTime.time]);
 

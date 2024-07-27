@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import AppHeader from '@src/components/AppHeader';
 import LongButton from '@src/components/LongButton';
-import { getHeight, getWidth } from '@src/styles/dimensions';
-import { containerStyles } from '@src/styles/commonStyles';
+import {getHeight, getWidth} from '@src/styles/dimensions';
+import {containerStyles} from '@src/styles/commonStyles';
 import colors from '@src/styles/colors';
 import CountDown from '@src/components/CountDown';
 import {
@@ -13,13 +13,13 @@ import {
   StackActions,
   useNavigation,
 } from '@react-navigation/native';
-import { RootStackParamList, TimerType } from '@src/types';
+import {RootStackParamList, TimerType} from '@src/types';
 import UseTimer from '@src/hook/useTimer';
-import { convertTimeToSeconds } from '@src/utils/funcs';
+import {convertTimeToSeconds} from '@src/utils/funcs';
 import SelectTimerModal from '@src/components/SelectTimerModal';
 import Sound from 'react-native-sound';
 import useSound from '@src/hook/useSound';
-import { QUESTION_READING_TIME_MAX_LIMIT } from '@src/utils/constants';
+import {QUESTION_READING_TIME_MAX_LIMIT} from '@src/utils/constants';
 
 const QuestionReading = () => {
   const [showPicker, setShowPicker] = useState<boolean>(false);
@@ -37,8 +37,8 @@ const QuestionReading = () => {
     isPlaying,
     setQuestionTime,
     decrementTime,
-  } = UseTimer({ source: 'questionReading' });
-  const { playSound } = useSound();
+  } = UseTimer({source: 'questionReading'});
+  const {playSound, onTimeLessThan2} = useSound();
 
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
@@ -72,6 +72,11 @@ const QuestionReading = () => {
       //means time over
       clearInterval(intervalId);
       onQuestionTimeOver();
+    } else if (
+      questionTime.time.seconds === 59 &&
+      questionTime.time.minutes === 1
+    ) {
+      onTimeLessThan2();
     }
   }, [questionTime.time]);
 
@@ -102,7 +107,11 @@ const QuestionReading = () => {
             onChangeTime(time, 'questionTime');
             setIsQuestionTimeEdited(true);
           }}
-          timeLimit={{ hours: QUESTION_READING_TIME_MAX_LIMIT.hours, minutes: QUESTION_READING_TIME_MAX_LIMIT.minutes, seconds: QUESTION_READING_TIME_MAX_LIMIT.seconds }}
+          timeLimit={{
+            hours: QUESTION_READING_TIME_MAX_LIMIT.hours,
+            minutes: QUESTION_READING_TIME_MAX_LIMIT.minutes,
+            seconds: QUESTION_READING_TIME_MAX_LIMIT.seconds,
+          }}
         />
         <View style={[styles.countdown_container]}>
           <View style={[styles.countdown_ops]}>
@@ -133,13 +142,13 @@ const QuestionReading = () => {
             </View>
           )}
         </View>
-        <View style={{ marginTop: getHeight(2) }}>
+        <View style={{marginTop: getHeight(2)}}>
           <Text style={[styles.question_heading]}>{'Question'}</Text>
           <View style={[styles.question_container]}>
             <Text style={[styles.question]}>{question}</Text>
           </View>
         </View>
-        <View style={{ marginTop: getHeight(1) }}>
+        <View style={{marginTop: getHeight(1)}}>
           <LongButton title="Enter the Room" onPress={goToEncounterScreen} />
         </View>
       </View>
