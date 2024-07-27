@@ -45,8 +45,8 @@ const CaseEncounter = () => {
       finishTask();
       playSound('move_on.mp3');
     } else if (
-      caseEncounterTime.time.seconds === 59 &&
-      caseEncounterTime.time.minutes === 1
+      caseEncounterTime.time.seconds === 0 &&
+      caseEncounterTime.time.minutes === 2
     ) {
       onTimeLessThan2();
     }
@@ -105,7 +105,13 @@ const CaseEncounter = () => {
         </View>
 
         <View style={{marginTop: getHeight(2)}}>
-          <LongButton title="Finish" onPress={finishTask} />
+          <LongButton
+            title="Finish"
+            onPress={() => {
+              finishTask();
+              clearInterval(intervalId);
+            }}
+          />
         </View>
       </View>
     </View>

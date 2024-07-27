@@ -73,8 +73,8 @@ const QuestionReading = () => {
       clearInterval(intervalId);
       onQuestionTimeOver();
     } else if (
-      questionTime.time.seconds === 59 &&
-      questionTime.time.minutes === 1
+      questionTime.time.seconds === 0 &&
+      questionTime.time.minutes === 2
     ) {
       onTimeLessThan2();
     }
