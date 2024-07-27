@@ -13,9 +13,9 @@ import useSound from '@src/hook/useSound';
 import {convertTimeToSeconds} from '@src/utils/funcs';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '@src/types';
+import BackgroundTimer from 'react-native-background-timer';
 
 const CaseEncounter = () => {
-  const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
   const [totalTime, setTotalTime] = useState<number>(300);
 
   const {
@@ -26,6 +26,7 @@ const CaseEncounter = () => {
     setCaseEncounterTime,
     finishTask,
     togglePlay,
+    clearBackgroundTimerInterval,
   } = UseTimer({source: 'caseEncounter'});
   const {playSound, onTimeLessThan2} = useSound();
 
@@ -41,7 +42,7 @@ const CaseEncounter = () => {
       caseEncounterTime.time.minutes === 0
     ) {
       //means time over
-      clearInterval(intervalId);
+      clearBackgroundTimerInterval();
       finishTask();
       playSound('move_on.mp3');
     } else if (
@@ -55,20 +56,25 @@ const CaseEncounter = () => {
   useEffect(() => {
     let durationInterval: NodeJS.Timeout;
     if (isPlaying) {
-      durationInterval = setInterval(() => {
+      // durationInterval = setInterval(() => {
+      //   setCaseEncounterTime(prevState => ({
+      //     ...prevState,
+      //     time: decrementTime(prevState.time),
+      //   }));
+      // }, 1000);
+
+      BackgroundTimer.runBackgroundTimer(() => {
         setCaseEncounterTime(prevState => ({
           ...prevState,
           time: decrementTime(prevState.time),
         }));
       }, 1000);
-
-      setIntervalId(durationInterval);
     } else {
-      clearInterval(durationInterval!);
+      clearBackgroundTimerInterval();
     }
 
     return () => {
-      clearInterval(durationInterval);
+      clearBackgroundTimerInterval();
     };
   }, [isPlaying]);
 
@@ -109,7 +115,7 @@ const CaseEncounter = () => {
             title="Finish"
             onPress={() => {
               finishTask();
-              clearInterval(intervalId);
+              clearBackgroundTimerInterval();
             }}
           />
         </View>
