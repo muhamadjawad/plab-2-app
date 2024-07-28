@@ -1,5 +1,5 @@
 import AppHeader from '@src/components/AppHeader';
-import React, {Component, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import LongButton from '@src/components/LongButton';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -8,11 +8,8 @@ import {getHeight, getWidth} from '@src/styles/dimensions';
 import CountDown from '@src/components/CountDown';
 import {containerStyles} from '@src/styles/commonStyles';
 import UseTimer from '@src/hook/useTimer';
-import Sound from 'react-native-sound';
 import useSound from '@src/hook/useSound';
 import {convertTimeToSeconds} from '@src/utils/funcs';
-import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '@src/types';
 import BackgroundTimer from 'react-native-background-timer';
 
 const CaseEncounter = () => {

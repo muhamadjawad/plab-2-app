@@ -6,8 +6,7 @@ import {
   DEFAULT_CASEENCOUNTER_TIME,
   DEFAULT_QUESTION_READING_TIME,
 } from '@src/utils/constants';
-import React, {useEffect, useState} from 'react';
-import Sound from 'react-native-sound';
+import {useState} from 'react';
 import BackgroundTimer from 'react-native-background-timer';
 
 type UseTimerProps = {

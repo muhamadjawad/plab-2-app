@@ -17,7 +17,6 @@ import {RootStackParamList, TimerType} from '@src/types';
 import UseTimer from '@src/hook/useTimer';
 import {convertTimeToSeconds} from '@src/utils/funcs';
 import SelectTimerModal from '@src/components/SelectTimerModal';
-import Sound from 'react-native-sound';
 import useSound from '@src/hook/useSound';
 import {QUESTION_READING_TIME_MAX_LIMIT} from '@src/utils/constants';
 import BackgroundTimer from 'react-native-background-timer';

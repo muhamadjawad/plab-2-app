@@ -1,42 +1,54 @@
-import React, { Component, useState } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import React, {Component, useState} from 'react';
+import {StyleSheet, Text, TextInput, View} from 'react-native';
 import AppHeader from '../../components/AppHeader';
 import colors from '../../styles/colors';
-import { containerStyles } from '../../styles/commonStyles';
-import { getHeight, getWidth } from '../../styles/dimensions';
+import {containerStyles} from '../../styles/commonStyles';
+import {getHeight, getWidth} from '../../styles/dimensions';
 import Timer from '../../components/Timer';
 import LongButton from '../../components/LongButton';
 import RadioButton from '../../components/RadioButton';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { ENCOUNTER_ROUTE, HOME_ROUTE, QUESTION_READING_ROUTE } from '@src/utils/routeConstants';
-import { RootStackParamList, TimerType } from '@src/types';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {RootStackParamList, TimerType} from '@src/types';
 import UseTimer from '@src/hook/useTimer';
-import { CASEENCOUNTER_TIME_LIMIT, QUESTION_READING_TIME_MAX_LIMIT } from '@src/utils/constants';
+import {
+  CASEENCOUNTER_TIME_LIMIT,
+  QUESTION_READING_TIME_MAX_LIMIT,
+} from '@src/utils/constants';
 
 type TimerStatusType = {
-  time: TimerType,
-  hide: boolean
-}
-
+  time: TimerType;
+  hide: boolean;
+};
 
 const Home = () => {
-
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-  const { onChangeTime, toggleHideButton,
-    onChangeQuestion, questionTime,
-    caseEncounterTime, question } = UseTimer({ source: 'home' })
+  const {
+    onChangeTime,
+    toggleHideButton,
+    onChangeQuestion,
+    questionTime,
+    caseEncounterTime,
+    question,
+  } = UseTimer({source: 'home'});
 
   return (
     <View>
       <AppHeader title="Timer Settings" />
-      <View style={[containerStyles, { paddingTop: getHeight(2) }]}>
-        <View  >
+      <View style={[containerStyles, {paddingTop: getHeight(2)}]}>
+        <View>
           <Text style={[styles.short_heading]}>{'Read Question time'}</Text>
-          <View style={{ marginTop: getHeight(1.5) }}>
-            <Timer time={questionTime.time} onChangeTimer={(time: TimerType) => onChangeTime(time, 'questionTime')}
-              timeLimit={{ hours: QUESTION_READING_TIME_MAX_LIMIT.hours, minutes: QUESTION_READING_TIME_MAX_LIMIT.minutes, seconds: QUESTION_READING_TIME_MAX_LIMIT.seconds }}
-
+          <View style={{marginTop: getHeight(1.5)}}>
+            <Timer
+              time={questionTime.time}
+              onChangeTimer={(time: TimerType) =>
+                onChangeTime(time, 'questionTime')
+              }
+              timeLimit={{
+                hours: QUESTION_READING_TIME_MAX_LIMIT.hours,
+                minutes: QUESTION_READING_TIME_MAX_LIMIT.minutes,
+                seconds: QUESTION_READING_TIME_MAX_LIMIT.seconds,
+              }}
             />
           </View>
           <RadioButton
@@ -53,15 +65,21 @@ const Home = () => {
             placeholderTextColor={colors.gray}
             multiline={true}
           />
-
         </View>
 
         <View style={[styles.encounter_container]}>
           <Text style={[styles.short_heading]}>{'Case Encounter time'}</Text>
-          <View style={{ marginTop: getHeight(1.5) }}>
-            <Timer time={caseEncounterTime.time} onChangeTimer={(time: TimerType) => onChangeTime(time, 'caseEncounterTime')}
-              timeLimit={{ hours: CASEENCOUNTER_TIME_LIMIT.hours, minutes: CASEENCOUNTER_TIME_LIMIT.minutes, seconds: CASEENCOUNTER_TIME_LIMIT.seconds }}
-
+          <View style={{marginTop: getHeight(1.5)}}>
+            <Timer
+              time={caseEncounterTime.time}
+              onChangeTimer={(time: TimerType) =>
+                onChangeTime(time, 'caseEncounterTime')
+              }
+              timeLimit={{
+                hours: CASEENCOUNTER_TIME_LIMIT.hours,
+                minutes: CASEENCOUNTER_TIME_LIMIT.minutes,
+                seconds: CASEENCOUNTER_TIME_LIMIT.seconds,
+              }}
             />
           </View>
           <RadioButton
@@ -71,8 +89,11 @@ const Home = () => {
           />
         </View>
 
-        <View style={{ marginTop: getHeight(3) }}>
-          <LongButton title={'Start'} onPress={() => navigation.navigate('question')} />
+        <View style={{marginTop: getHeight(3)}}>
+          <LongButton
+            title={'Start'}
+            onPress={() => navigation.navigate('question')}
+          />
         </View>
       </View>
     </View>
