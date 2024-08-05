@@ -8,7 +8,6 @@ const useSound = () => {
     // Load the sound file
     const sound = new Sound(soundFile, Sound.MAIN_BUNDLE, error => {
       if (error) {
-        console.log('Failed to load the sound', error);
         return;
       }
 
@@ -16,7 +15,6 @@ const useSound = () => {
       setTimeout(() => {
         sound.play(success => {
           if (success) {
-            console.log('Successfully finished playing');
             if (onFinish) {
               onFinish();
             }

@@ -71,15 +71,13 @@ const QuestionReading = () => {
     }
 
     return () => {
-      // clearInterval(durationInterval);
-      clearBackgroundTimerInterval();
+      // clearBackgroundTimerInterval();
     };
   }, [isPlaying]);
 
   useEffect(() => {
     if (questionTime.time.seconds === 0 && questionTime.time.minutes === 0) {
       //means time over
-      // clearInterval(intervalId);
       clearBackgroundTimerInterval();
       onQuestionTimeOver();
     } else if (
@@ -103,6 +101,8 @@ const QuestionReading = () => {
   };
 
   const goToEncounterScreen = () => {
+    clearBackgroundTimerInterval();
+
     navigation.dispatch(StackActions.replace('encounter'));
   };
 
