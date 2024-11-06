@@ -91,7 +91,7 @@ const CaseEncounter = () => {
             </TouchableOpacity>
             <TouchableOpacity onPress={togglePlay}>
               <Icon
-                name={isPlaying ? 'play' : 'pause'}
+                  name={isPlaying ? 'pause' : 'play'}
                 size={getWidth(6)}
                 color={colors.black}
               />
